@@ -1,0 +1,48 @@
+/* Estilos del calendario */
+
+.calendar {
+  color: #000;
+}
+
+.fc-scrollgrid a {
+  color: #000 !important;
+}
+
+/* Estilos de la Header */
+.header {
+  margin-bottom: 1.5rem;
+}
+
+.title-user {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.3rem;
+}
+
+.title-user i {
+  padding-right: 0.5rem;
+}
+
+#navbar {
+  background-color: #1d2023 !important;
+  color: #fff;
+}
+
+/* Botón de creación - Activa la modal */
+.btn-option {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  position: fixed;
+  bottom: 1rem;
+  z-index: 90;
+}
+
+.btn-create {
+  right: 1rem;
+}
+
+.btn-delete {
+  left: 1rem;
+}

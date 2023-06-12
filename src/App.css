@@ -1,17 +1,10 @@
-.calendar {
-  color: #000;
+/* Generales */
+html {
+  box-sizing: border-box;
 }
 
-.fc-scrollgrid {
-  color: #000;
-}
-
-/* Estilos de la Header */
-.header {
-  margin-bottom: 1.5rem;
-}
-
-#navbar {
-  background-color: #1d2023 !important;
-  color: #fff;
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
 }

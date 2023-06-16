@@ -8,6 +8,8 @@ const postAuthenticateUser = (enpoint, credentials) => {
   });
 };
 
+// const postLogoutSessionUser = (enpoint, credentials) {}
+
 const getTasks = (enpoint, token) => {
   return axiosConfig.get(`api/${enpoint}`, {
     headers: {
@@ -17,8 +19,17 @@ const getTasks = (enpoint, token) => {
   });
 };
 
+const getTasksToUser = (enpoint, token, user_id) => {
+  return axiosConfig.get(`api/${enpoint}/user/${user_id}/`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
 const postTask = (enpoint, token, data) => {
-  return axiosConfig.post(enpoint, data, {
+  return axiosConfig.post(`api/${enpoint}`, data, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
@@ -27,7 +38,7 @@ const postTask = (enpoint, token, data) => {
 };
 
 const deleteTask = (enpoint, token, id) => {
-  return axiosConfig.delete(`${enpoint}/${id}`, {
+  return axiosConfig.delete(`api/${enpoint}/${id}/`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
@@ -43,4 +54,4 @@ const deleteTask = (enpoint, token, id) => {
 //   });
 // };
 
-export { postAuthenticateUser, getTasks, postTask, deleteTask };
+export { postAuthenticateUser, getTasks, getTasksToUser, postTask, deleteTask };

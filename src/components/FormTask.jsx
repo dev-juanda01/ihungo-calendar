@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { postNewTask } from "../slices/calendar/thunks_calendar";
 
 const formInitialState = {
@@ -8,11 +8,12 @@ const formInitialState = {
   start_date: "",
   end_date: "",
   color: "",
-  user: "default",
+  user: 0,
 };
 
 export default function FormTask() {
   const [form, setForm] = useState(formInitialState);
+  const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const handleChange = ({ target }) => {
@@ -24,15 +25,16 @@ export default function FormTask() {
 
     if (
       !form.activity_type ||
-      !form.description ||
       !form.end_date ||
       !form.start_date ||
-      !form.partner
+      !form.user
     ) {
       return alert("Campos vacios - Completelos");
     }
 
-    dispatch(postNewTask(form));
+    console.log(typeof form.user);
+
+    dispatch(postNewTask(user.token, form));
   };
 
   return (
@@ -114,11 +116,11 @@ export default function FormTask() {
         <select
           className="form-select"
           aria-label="Default select example"
-          name="partner"
+          name="user"
           onChange={handleChange}
           value={form.user}
         >
-          <option value="default" disabled>
+          <option value={0} disabled>
             Selecciona un asociado
           </option>
           <option value={1}>Juan Camilo</option>

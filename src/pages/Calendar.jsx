@@ -38,7 +38,11 @@ export default function Calendar() {
   };
 
   useEffect(() => {
-    dispatch(getAllTasks(user.token));
+    if (user.user.is_superuser) {
+      dispatch(getAllTasks(user.token));
+    } else {
+      dispatch(getAllTasks(user.token, user.user.id));
+    }
   }, []);
 
   return (
@@ -61,7 +65,7 @@ export default function Calendar() {
             <>
               <ModalCreateTask />
               <ButtonCreate />
-              <ButtonDelete dataToDel={dataToDel} />
+              <ButtonDelete idTaskToDel={dataToDel} />
             </>
           )}
         </div>

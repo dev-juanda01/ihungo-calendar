@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { clearTaskSession } from "../slices/calendar/calendarSlice";
 import { logout } from "../slices/user/userSlice";
 
 export default function Header() {
@@ -25,6 +26,7 @@ export default function Header() {
             className="btn btn-outline-danger"
             onClick={() => {
               dispatch(logout());
+              dispatch(clearTaskSession());
               navigate("/");
             }}
           >

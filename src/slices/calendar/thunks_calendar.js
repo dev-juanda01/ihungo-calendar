@@ -1,4 +1,9 @@
-import { deleteTask, getTasks, postTask } from "../../hooks/useAxiosHelp";
+import {
+  deleteTask,
+  getTasks,
+  getTasksToUser,
+  postTask,
+} from "../../hooks/useAxiosHelp";
 import {
   createNewTask,
   deleteOneTask,
@@ -8,16 +13,22 @@ import {
 
 const enpoint = "tasks/";
 
-const getAllTasks = (token) => {
+const getAllTasks = (token, user_id = null) => {
   return async (dispatch, getState) => {
     dispatch(startLoadingTasks());
 
     try {
-      const { data } = await getTasks(enpoint, token);
+      let tasks = null;
+
+      if (user_id) {
+        tasks = await getTasksToUser(enpoint, token, user_id);
+      } else {
+        tasks = await getTasks(enpoint, token);
+      }
 
       dispatch(
         readAllTasks({
-          tasks: data,
+          tasks: tasks.data,
         })
       );
     } catch (error) {

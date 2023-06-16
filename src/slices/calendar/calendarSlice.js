@@ -29,11 +29,19 @@ export const calendarSlice = createSlice({
     deleteOneTask: (state, action) => {
       state.tasks = state.tasks.filter((task) => task.id != action.payload);
     },
+    clearTaskSession: (state) => {
+      state.tasks = [];
+    },
     startLoadingTasks: (state) => {
       state.isLoading = true;
     },
   },
 });
 
-export const { readAllTasks, createNewTask, deleteOneTask, startLoadingTasks } =
-  calendarSlice.actions;
+export const {
+  readAllTasks,
+  createNewTask,
+  deleteOneTask,
+  clearTaskSession,
+  startLoadingTasks,
+} = calendarSlice.actions;

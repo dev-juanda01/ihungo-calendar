@@ -38,7 +38,7 @@ const postTask = (enpoint, token, data) => {
 };
 
 const deleteTask = (enpoint, token, id) => {
-  return axiosConfig.delete(`api/${enpoint}/${id}/`, {
+  return axiosConfig.delete(`api/${enpoint}${id}/`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,

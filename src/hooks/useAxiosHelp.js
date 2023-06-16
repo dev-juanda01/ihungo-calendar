@@ -37,6 +37,15 @@ const postTask = (enpoint, token, data) => {
   });
 };
 
+const putTask = (enpoint, token, data) => {
+  return axiosConfig.put(`${enpoint}${data.id}`, data, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
 const deleteTask = (enpoint, token, id) => {
   return axiosConfig.delete(`api/${enpoint}${id}/`, {
     headers: {
@@ -46,12 +55,11 @@ const deleteTask = (enpoint, token, id) => {
   });
 };
 
-// const putDoc = (enpoint, data) => {
-//   return axiosConfig.put(`${enpoint}?id=${data._id}`, data, {
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//   });
-// };
-
-export { postAuthenticateUser, getTasks, getTasksToUser, postTask, deleteTask };
+export {
+  postAuthenticateUser,
+  getTasks,
+  getTasksToUser,
+  postTask,
+  putTask,
+  deleteTask,
+};

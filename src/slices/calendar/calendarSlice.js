@@ -24,7 +24,9 @@ export const calendarSlice = createSlice({
       state.tasks = [...state.tasks, action.payload.task];
     },
     updateTask: (state, action) => {
-      // state.tasks = state.tasks.map(task => )
+      state.tasks = state.tasks.filter((task) =>
+        task.id == action.payload.id ? action.payload : task
+      );
     },
     deleteOneTask: (state, action) => {
       state.tasks = state.tasks.filter((task) => task.id != action.payload);
@@ -41,6 +43,7 @@ export const calendarSlice = createSlice({
 export const {
   readAllTasks,
   createNewTask,
+  updateTask,
   deleteOneTask,
   clearTaskSession,
   startLoadingTasks,

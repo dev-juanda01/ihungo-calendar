@@ -13,6 +13,7 @@ import { getAllTasks } from "../slices/calendar/thunks_calendar";
 import Spinnerloader from "../components/Spinnerloader";
 import "../styles/Calendar.css";
 import { useNavigate } from "react-router-dom";
+import { sendMessageToViewAndUpdateTask } from "../helpers/sweetalert_help";
 
 export default function Calendar() {
   const { tasks, isLoading } = useSelector((state) => state.calendar);
@@ -22,6 +23,11 @@ export default function Calendar() {
   const [dataToDel, setDataToDel] = useState(null);
 
   const eventClickTask = (eventInfo) => {
+    const task = {
+      title: eventInfo.event.title,
+      description: eventInfo.event.extendedProps.description,
+    };
+    sendMessageToViewAndUpdateTask(task);
     setDataToDel(eventInfo.event.id);
   };
 

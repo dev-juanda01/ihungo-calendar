@@ -10,7 +10,8 @@ const getUserAuth = (user) => {
       const { data } = await postAuthenticateUser(enpoint, user);
       dispatch(login(data));
     } catch (error) {
-      console.log(error);
+      const resError = error.response.data.error;
+      alert(resError);
     }
   };
 };

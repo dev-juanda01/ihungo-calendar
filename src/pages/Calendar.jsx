@@ -12,44 +12,31 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllTasks } from "../slices/calendar/thunks_calendar";
 import Spinnerloader from "../components/Spinnerloader";
 import "../styles/Calendar.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Calendar() {
   const { tasks, isLoading } = useSelector((state) => state.calendar);
   const { user } = useSelector((state) => state.user);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [dataToDel, setDataToDel] = useState(null);
 
-  // const removeTask = async () => {
-  //   try {
-  //     const isDelete = confirm("¿Seguro de eliminar esta tarea?");
-
-  //     if (isDelete) {
-  //       const res = await deleteTask(enpoint, dataToDel);
-  //       dispatch({ type: TYPES.DELETE_TASK, payload: dataToDel });
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   const eventClickTask = (eventInfo) => {
     setDataToDel(eventInfo.event.id);
-    // alert(`Tarea - ${eventInfo.event.id}`);
   };
 
   useEffect(() => {
-    if (user.user.is_superuser) {
-      dispatch(getAllTasks(user.token));
-    } else {
-      dispatch(getAllTasks(user.token, user.user.id));
-    }
+    if (!user) return navigate("/");
+
+    user.user.is_superuser
+      ? dispatch(getAllTasks(user.token))
+      : dispatch(getAllTasks(user.token, user.user.id));
   }, []);
 
   return (
     <>
-      {isLoading ? (
-        <Spinnerloader />
-      ) : (
+      {isLoading && <Spinnerloader />}
+      {user != null && (
         <div className="calendar">
           <Header />
           <FullCalendar

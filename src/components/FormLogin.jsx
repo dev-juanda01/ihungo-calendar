@@ -1,10 +1,18 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { getUserAuth } from "../slices/user/thunks_user";
 
-export default function FormLogin({ login }) {
-  const [form, setForm] = useState({
-    email: "",
-    password: "",
-  });
+const initialState = {
+  email: "",
+  password: "",
+};
+
+export default function FormLogin() {
+  const [form, setForm] = useState(initialState);
+  const { user } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleChange = ({ target }) => {
     setForm({ ...form, [target.name]: target.value });
@@ -13,7 +21,12 @@ export default function FormLogin({ login }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    login(form);
+    if (!form.email || !form.password)
+      return alert("Campos vacios - No ingreso");
+
+    dispatch(getUserAuth(form));
+    navigate("calendar");
+    setForm(initialState);
   };
 
   return (

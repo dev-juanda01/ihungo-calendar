@@ -1,6 +1,6 @@
 import FormTask from "./FormTask";
 
-export default function ModalCreateTask({ createTask }) {
+export default function ModalCreateTask() {
   return (
     <div
       className="modal fade"
@@ -23,7 +23,7 @@ export default function ModalCreateTask({ createTask }) {
             ></button>
           </div>
           <div className="modal-body">
-            <FormTask createTask={createTask} />
+            <FormTask />
           </div>
         </div>
       </div>

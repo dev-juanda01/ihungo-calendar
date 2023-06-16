@@ -1,19 +1,19 @@
-import { useState, useEffect } from "react";
-import { getActivesPartner } from "../services/partners_service";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { postNewTask } from "../slices/calendar/thunks_calendar";
 
 const formInitialState = {
   activity_type: "",
   description: "",
   start_date: "",
   end_date: "",
-  partner: "default",
+  color: "",
+  user: "default",
 };
 
-export default function FormTask({ createTask }) {
+export default function FormTask() {
   const [form, setForm] = useState(formInitialState);
-  const [activesPartner, setActivesPartner] = useState([]);
-
-  const enpoint = "partners/actives/";
+  const dispatch = useDispatch();
 
   const handleChange = ({ target }) => {
     setForm({ ...form, [target.name]: target.value });
@@ -21,21 +21,19 @@ export default function FormTask({ createTask }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    createTask(form);
-  };
 
-  const listActivesPartners = async () => {
-    try {
-      const { data } = await getActivesPartner(enpoint);
-      setActivesPartner(data);
-    } catch (error) {
-      console.log(error);
+    if (
+      !form.activity_type ||
+      !form.description ||
+      !form.end_date ||
+      !form.start_date ||
+      !form.partner
+    ) {
+      return alert("Campos vacios - Completelos");
     }
-  };
 
-  useEffect(() => {
-    listActivesPartners();
-  }, []);
+    dispatch(postNewTask(form));
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -97,6 +95,19 @@ export default function FormTask({ createTask }) {
         />
       </div>
       <div className="mb-3">
+        <label htmlFor="color" className="form-label">
+          Color
+        </label>
+        <br />
+        <input
+          type="color"
+          name="color"
+          id="color"
+          value={form.color}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="mb-3">
         <label htmlFor="asociado" className="form-label">
           Asociado
         </label>
@@ -105,16 +116,19 @@ export default function FormTask({ createTask }) {
           aria-label="Default select example"
           name="partner"
           onChange={handleChange}
-          value={form.partner}
+          value={form.user}
         >
           <option value="default" disabled>
             Selecciona un asociado
           </option>
-          {activesPartner.map((partner, index) => (
+          <option value={1}>Juan Camilo</option>
+          <option value={2}>Adriana Lopex</option>
+          <option value={3}>Sara Cardenas</option>
+          {/* {activesPartner.map((partner, index) => (
             <option key={index} value={partner.id}>
               {partner.name} {partner.last_name}
             </option>
-          ))}
+          ))} */}
         </select>
       </div>
       <div className="modal-footer">

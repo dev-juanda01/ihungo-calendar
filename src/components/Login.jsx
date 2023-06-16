@@ -1,11 +1,11 @@
 import FormLogin from "./FormLogin";
 
-export default function Login({ login }) {
+export default function Login() {
   return (
     <div className="login col">
       <div className="card card-login">
         <div className="card-body">
-          <FormLogin login={login} />
+          <FormLogin />
         </div>
       </div>
     </div>

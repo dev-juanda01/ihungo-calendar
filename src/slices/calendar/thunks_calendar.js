@@ -8,12 +8,12 @@ import {
 
 const enpoint = "tasks/";
 
-const getAllTasks = () => {
+const getAllTasks = (token) => {
   return async (dispatch, getState) => {
     dispatch(startLoadingTasks());
 
     try {
-      const { data } = await getTasks(enpoint);
+      const { data } = await getTasks(enpoint, token);
 
       dispatch(
         readAllTasks({
@@ -26,10 +26,10 @@ const getAllTasks = () => {
   };
 };
 
-const postNewTask = (task) => {
+const postNewTask = (token, task) => {
   return async (dispatch, getState) => {
     try {
-      const { data } = await postTask(enpoint, task);
+      const { data } = await postTask(enpoint, token, task);
 
       const dataInCalendarFormat = {
         title: data.activity_type,
@@ -51,10 +51,10 @@ const postNewTask = (task) => {
   };
 };
 
-const deleteExistsTask = (id) => {
+const deleteExistsTask = (token, id) => {
   return async (dispatch, getState) => {
     try {
-      const res = await deleteTask(enpoint, id);
+      const res = await deleteTask(enpoint, token, id);
       dispatch(deleteOneTask(id));
     } catch (error) {
       console.log(error);

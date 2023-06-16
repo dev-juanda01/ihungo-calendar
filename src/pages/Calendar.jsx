@@ -14,7 +14,8 @@ import Spinnerloader from "../components/Spinnerloader";
 import "../styles/Calendar.css";
 
 export default function Calendar() {
-  let { tasks, isLoading } = useSelector((state) => state.calendar);
+  const { tasks, isLoading } = useSelector((state) => state.calendar);
+  const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [dataToDel, setDataToDel] = useState(null);
 
@@ -37,7 +38,7 @@ export default function Calendar() {
   };
 
   useEffect(() => {
-    dispatch(getAllTasks());
+    dispatch(getAllTasks(user.token));
   }, []);
 
   return (
@@ -56,13 +57,13 @@ export default function Calendar() {
             events={tasks}
             eventClick={eventClickTask}
           />
-          {/* {user.is_admin && ( */}
-          <>
-            <ModalCreateTask />
-            <ButtonCreate />
-            <ButtonDelete dataToDel={dataToDel} />
-          </>
-          {/* )} */}
+          {user.user.is_superuser && (
+            <>
+              <ModalCreateTask />
+              <ButtonCreate />
+              <ButtonDelete dataToDel={dataToDel} />
+            </>
+          )}
         </div>
       )}
     </>

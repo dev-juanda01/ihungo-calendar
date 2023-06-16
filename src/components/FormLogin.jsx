@@ -10,9 +10,9 @@ const initialState = {
 
 export default function FormLogin() {
   const [form, setForm] = useState(initialState);
-  const { user } = useSelector((state) => state.user);
+  // const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const handleChange = ({ target }) => {
     setForm({ ...form, [target.name]: target.value });
@@ -25,8 +25,13 @@ export default function FormLogin() {
       return alert("Campos vacios - No ingreso");
 
     dispatch(getUserAuth(form));
-    navigate("calendar");
-    setForm(initialState);
+
+    // console.log(user);
+
+    // if (user != null) {
+    //   navigate("calendar");
+    //   setForm(initialState);
+    // }
   };
 
   return (

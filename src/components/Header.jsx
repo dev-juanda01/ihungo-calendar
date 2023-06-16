@@ -1,9 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { logout } from "../slices/user/userSlice";
 
 export default function Header() {
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   return (
     <div className="header">
@@ -12,16 +14,19 @@ export default function Header() {
           <div className="title-user">
             <i className="fa-solid fa-calendar-days"></i>
             <b>
-              {/* {user.name} */}
+              {user.user.first_name}
               <span style={{ paddingLeft: ".6rem", fontWeight: "normal" }}>
-                {/* ({user.is_admin ? "Admin" : "Asociado"}) */}
+                ({user.user.is_superuser ? "Admin" : "Asociado"})
               </span>
             </b>
           </div>
           <button
             type="button"
             className="btn btn-outline-danger"
-            onClick={() => dispatch(logout())}
+            onClick={() => {
+              dispatch(logout());
+              navigate("/");
+            }}
           >
             <i
               className="fa-solid fa-arrow-right-from-bracket"

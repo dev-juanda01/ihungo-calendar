@@ -7,7 +7,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import Header from "../components/Header";
-import { headerToolbarOptions } from "../helpers/props_fullcalendar";
+import {
+  customButtonsCalendar,
+  headerToolbarOptions,
+} from "../helpers/props_fullcalendar";
 import ModalCreateTask from "../components/ModalCreateTask";
 import ButtonCreate from "../components/ButtonCreate";
 import ButtonDelete from "../components/ButtonDelete";
@@ -51,6 +54,7 @@ export default function Calendar() {
       dispatch(getAllTasks(user.token));
       dispatch(getActiveUsersToFormTask(user.token));
     } else {
+      console.log('yesss');
       dispatch(getAllTasks(user.token, user.user.id));
     }
   }, []);
@@ -69,6 +73,7 @@ export default function Calendar() {
             locale="es"
             events={tasks}
             eventClick={eventClickTask}
+            customButtons={customButtonsCalendar}
           />
           {user.user.is_superuser && (
             <>

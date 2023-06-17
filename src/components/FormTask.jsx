@@ -31,7 +31,8 @@ export default function FormTask({ setTaskToEdit, taskToEdit }) {
       !form.activity_type ||
       !form.end_date ||
       !form.start_date ||
-      !form.user
+      !form.user ||
+      !form.color
     ) {
       return alert("Campos vacios - Completelos");
     }

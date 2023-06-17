@@ -1,7 +1,7 @@
 const headerToolbarOptions = {
   left: "today prev,next",
   center: "title",
-  right: "dayGridMonth,timeGridWeek,timeGridDay",
+  right: "dayGridMonth,timeGridWeek,timeGridDay,agendaButton",
 };
 
 const toolbarButtonsText = {
@@ -30,4 +30,18 @@ const colorsEventTasks = [
   "#F06291",
 ];
 
-export { headerToolbarOptions, toolbarButtonsText, colorsEventTasks };
+const customButtonsCalendar = {
+  agendaButton: {
+    text: "Agenda",
+    click: function () {
+      console.log("Click del boton agenda");
+    },
+  },
+};
+
+export {
+  headerToolbarOptions,
+  toolbarButtonsText,
+  colorsEventTasks,
+  customButtonsCalendar,
+};

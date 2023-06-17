@@ -17,7 +17,7 @@ export const calendarSlice = createSlice({
         description: task.description,
         id: task.id,
         color: task.color,
-        user: task.user
+        user: task.user,
       }));
       state.isLoading = false;
     },
@@ -25,8 +25,18 @@ export const calendarSlice = createSlice({
       state.tasks = [...state.tasks, action.payload.task];
     },
     updateTask: (state, action) => {
-      state.tasks = state.tasks.filter((task) =>
-        task.id == action.payload.id ? action.payload : task
+      state.tasks = state.tasks.map((task) =>
+        task.id == action.payload.id
+          ? {
+              title: action.payload.activity_type,
+              start: action.payload.start_date,
+              end: action.payload.end_date,
+              description: action.payload.description,
+              id: action.payload.id,
+              color: action.payload.color,
+              user: action.payload.user,
+            }
+          : task
       );
     },
     deleteOneTask: (state, action) => {

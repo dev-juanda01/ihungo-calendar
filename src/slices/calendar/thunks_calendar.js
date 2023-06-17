@@ -3,12 +3,14 @@ import {
   getTasks,
   getTasksToUser,
   postTask,
+  putTask,
 } from "../../hooks/useAxiosHelp";
 import {
   createNewTask,
   deleteOneTask,
   readAllTasks,
   startLoadingTasks,
+  updateTask,
 } from "./calendarSlice";
 
 const enpoint = "tasks/";
@@ -62,10 +64,22 @@ const postNewTask = (token, task) => {
   };
 };
 
+const updateExistsTask = (token, task) => {
+  return async (dispatch, getState) => {
+    try {
+      const { data } = await putTask(enpoint, token, task);
+      console.log(data);
+      dispatch(updateTask(data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 const deleteExistsTask = (token, id) => {
   return async (dispatch, getState) => {
     try {
-      const res = await deleteTask(enpoint, token, id);
+      await deleteTask(enpoint, token, id);
       dispatch(deleteOneTask(id));
     } catch (error) {
       console.log(error);
@@ -73,4 +87,4 @@ const deleteExistsTask = (token, id) => {
   };
 };
 
-export { getAllTasks, postNewTask, deleteExistsTask };
+export { getAllTasks, postNewTask, updateExistsTask, deleteExistsTask };

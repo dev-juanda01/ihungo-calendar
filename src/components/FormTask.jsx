@@ -1,8 +1,12 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { postNewTask } from "../slices/calendar/thunks_calendar";
+import {
+  postNewTask,
+  updateExistsTask,
+} from "../slices/calendar/thunks_calendar";
 
 const formInitialState = {
+  id: null,
   activity_type: "",
   description: "",
   start_date: "",
@@ -32,7 +36,9 @@ export default function FormTask({ setTaskToEdit, taskToEdit }) {
       return alert("Campos vacios - Completelos");
     }
 
-    dispatch(postNewTask(user.token, form));
+    form.id
+      ? dispatch(updateExistsTask(user.token, form))
+      : dispatch(postNewTask(user.token, form));
     setForm(formInitialState);
   };
 

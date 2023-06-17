@@ -48,7 +48,7 @@ const postTask = (enpoint, token, data) => {
 };
 
 const putTask = (enpoint, token, data) => {
-  return axiosConfig.put(`${enpoint}${data.id}`, data, {
+  return axiosConfig.put(`api/${enpoint}${data.id}/`, data, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,

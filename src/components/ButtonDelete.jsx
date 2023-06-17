@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import { confirmDeleteTask } from "../helpers/sweetalert_help";
 import { deleteExistsTask } from "../slices/calendar/thunks_calendar";
 
 export default function ButtonDelete({ idTaskToDel }) {
@@ -6,11 +7,12 @@ export default function ButtonDelete({ idTaskToDel }) {
   const dispatch = useDispatch();
 
   const handleClickDeleteTask = (e) => {
-    let confirmDeleteTask = confirm("¿Estas seguro de eliminar esta tarea?");
-
-    if (confirmDeleteTask) {
-      dispatch(deleteExistsTask(user.token, idTaskToDel));
-    }
+    confirmDeleteTask().then((res) => {
+      if (res) {
+        dispatch(deleteExistsTask(user.token, idTaskToDel));
+        Swal.fire("Eliminada!", "Tarea eliminada correctamente.", "success");
+      }
+    });
   };
 
   return (

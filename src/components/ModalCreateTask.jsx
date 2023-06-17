@@ -1,6 +1,6 @@
 import FormTask from "./FormTask";
 
-export default function ModalCreateTask() {
+export default function ModalCreateTask({ setTaskToEdit, taskToEdit }) {
   return (
     <div
       className="modal fade"
@@ -13,7 +13,7 @@ export default function ModalCreateTask() {
         <div className="modal-content">
           <div className="modal-header">
             <h1 className="modal-title fs-5" id="exampleModalLabel">
-              Agregar tarea
+              {taskToEdit ? "Editar tarea" : "Agregar tarea"}
             </h1>
             <button
               type="button"
@@ -23,7 +23,7 @@ export default function ModalCreateTask() {
             ></button>
           </div>
           <div className="modal-body">
-            <FormTask />
+            <FormTask setTaskToEdit={setTaskToEdit} taskToEdit={taskToEdit} />
           </div>
         </div>
       </div>

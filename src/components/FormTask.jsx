@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { postNewTask } from "../slices/calendar/thunks_calendar";
 
@@ -11,9 +11,9 @@ const formInitialState = {
   user: 0,
 };
 
-export default function FormTask() {
+export default function FormTask({ setTaskToEdit, taskToEdit }) {
   const [form, setForm] = useState(formInitialState);
-  const { user } = useSelector((state) => state.user);
+  const { user, activeUsers } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const handleChange = ({ target }) => {
@@ -32,10 +32,13 @@ export default function FormTask() {
       return alert("Campos vacios - Completelos");
     }
 
-    console.log(typeof form.user);
-
     dispatch(postNewTask(user.token, form));
+    setForm(formInitialState);
   };
+
+  useEffect(() => {
+    taskToEdit && setForm(taskToEdit);
+  }, [taskToEdit]);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -123,14 +126,11 @@ export default function FormTask() {
           <option value={0} disabled>
             Selecciona un asociado
           </option>
-          <option value={1}>Juan Camilo</option>
-          <option value={2}>Adriana Lopex</option>
-          <option value={3}>Sara Cardenas</option>
-          {/* {activesPartner.map((partner, index) => (
-            <option key={index} value={partner.id}>
-              {partner.name} {partner.last_name}
+          {activeUsers.map((user, index) => (
+            <option key={index} value={user.id}>
+              {user.email}
             </option>
-          ))} */}
+          ))}
         </select>
       </div>
       <div className="modal-footer">
@@ -138,6 +138,10 @@ export default function FormTask() {
           type="button"
           className="btn btn-secondary"
           data-bs-dismiss="modal"
+          onClick={() => {
+            setForm(formInitialState);
+            setTaskToEdit(null);
+          }}
         >
           Cerrar
         </button>

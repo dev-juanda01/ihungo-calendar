@@ -1,5 +1,5 @@
-import { postAuthenticateUser } from "../../hooks/useAxiosHelp";
-import { login, startLoadingLogin } from "./userSlice";
+import { getActiveUsers, postAuthenticateUser } from "../../hooks/useAxiosHelp";
+import { loadActiveUsers, login, startLoadingLogin } from "./userSlice";
 
 const enpoint = "login";
 
@@ -16,4 +16,11 @@ const getUserAuth = (user) => {
   };
 };
 
-export { getUserAuth };
+const getActiveUsersToFormTask = (token) => {
+  return async (dispatch, getState) => {
+    const { data } = await getActiveUsers(token);
+    dispatch(loadActiveUsers(data));
+  };
+};
+
+export { getUserAuth, getActiveUsersToFormTask };

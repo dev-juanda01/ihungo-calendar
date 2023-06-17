@@ -7,7 +7,7 @@ export default function FormRegister() {
           <input
             type="text"
             className="form-control"
-            id="exampleInputEmail1"
+            id="name"
             aria-describedby="emailHelp"
             placeholder="Nombre"
             required
@@ -17,7 +17,7 @@ export default function FormRegister() {
           <input
             type="email"
             className="form-control"
-            id="exampleInputEmail1"
+            id="email"
             aria-describedby="emailHelp"
             placeholder="Correo"
             required
@@ -27,7 +27,7 @@ export default function FormRegister() {
           <input
             type="password"
             className="form-control"
-            id="exampleInputPassword1"
+            id="password"
             placeholder="Contraseña"
             required
           />
@@ -36,7 +36,7 @@ export default function FormRegister() {
           <input
             type="password"
             className="form-control"
-            id="exampleInputPassword1"
+            id="password-2"
             placeholder="Repita la contraseña"
             required
           />

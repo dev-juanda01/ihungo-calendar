@@ -2,7 +2,6 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Login from "../components/Login";
 import Register from "../components/Register";
-// import SpinnerLoader from "../components/Spinnerloader";
 import "../styles/Home.css";
 
 export default function Home() {

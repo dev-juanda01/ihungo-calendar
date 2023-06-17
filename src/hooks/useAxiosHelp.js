@@ -8,6 +8,16 @@ const postAuthenticateUser = (enpoint, credentials) => {
   });
 };
 
+const getActiveUsers = (token) => {
+  return axiosConfig.get(`api/users/actives`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+// TODO: Logout para las sesiones
 // const postLogoutSessionUser = (enpoint, credentials) {}
 
 const getTasks = (enpoint, token) => {
@@ -20,7 +30,7 @@ const getTasks = (enpoint, token) => {
 };
 
 const getTasksToUser = (enpoint, token, user_id) => {
-  return axiosConfig.get(`api/${enpoint}/user/${user_id}/`, {
+  return axiosConfig.get(`api/${enpoint}user/${user_id}`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
@@ -57,6 +67,7 @@ const deleteTask = (enpoint, token, id) => {
 
 export {
   postAuthenticateUser,
+  getActiveUsers,
   getTasks,
   getTasksToUser,
   postTask,

@@ -17,6 +17,7 @@ export const calendarSlice = createSlice({
         description: task.description,
         id: task.id,
         color: task.color,
+        user: task.user
       }));
       state.isLoading = false;
     },
